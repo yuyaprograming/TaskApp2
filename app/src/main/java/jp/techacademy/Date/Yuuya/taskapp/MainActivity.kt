@@ -3,6 +3,7 @@ package jp.techacademy.Date.Yuuya.taskapp
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
