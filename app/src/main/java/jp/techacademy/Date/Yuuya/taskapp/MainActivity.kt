@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         reloadListView()
     }
 
+    //aaaa
+
     private fun reloadListView() {
         // 後でTaskクラスに変更する
         val taskList = mutableListOf("aaa", "bbb", "ccc")
