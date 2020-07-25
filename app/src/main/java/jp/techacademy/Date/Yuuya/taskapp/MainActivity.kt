@@ -2,6 +2,7 @@ package jp.techacademy.Date.Yuuya.taskapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -9,6 +10,7 @@ import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_main.*
 import io.realm.RealmChangeListener
 import io.realm.Sort
+import kotlinx.android.synthetic.main.content_input.*
 import java.util.*
 
 const val EXTRA_TASK = "jp.techacademy.taro.kirameki.taskapp.TASK"
@@ -81,10 +83,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun reloadListView() {
+        if (edittext.text != emputy)  {
+
+        } else {
+            val taskRealmResults = mRealm.where(Task::class.java).findAll().sort("date", Sort.DESCENDING)
+        }
         // Realmデータベースから、「全てのデータを取得して新しい日時順に並べた結果」を取得
         val taskRealmResults = mRealm.where(Task::class.java).findAll().sort("date", Sort.DESCENDING)
-
-        // 上記の結果を、TaskList としてセットする
         mTaskAdapter.taskList = mRealm.copyFromRealm(taskRealmResults)
 
         // TaskのListView用のアダプタに渡す
