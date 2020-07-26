@@ -82,14 +82,16 @@ class MainActivity : AppCompatActivity() {
         reloadListView()
     }
 
-    private fun reloadListView() {
-        if (edittext.text != emputy)  {
+    var taskRealmResults = null
 
+    private fun reloadListView() {
+        if (category_home.text.isEmpty())  {
+            // Realmデータベースから、「全てのデータを取得して新しい日時順に並べた結果」を取得
+            var taskRealmResults = mRealm.where(Task::class.java).findAll().sort("date", Sort.DESCENDING)
         } else {
-            val taskRealmResults = mRealm.where(Task::class.java).findAll().sort("date", Sort.DESCENDING)
+            var taskRealmResults = mRealm.where(Task::class.java).beginsWith("category", category_home.text.toString()).findAll().sort("date", Sort.DESCENDING)
         }
-        // Realmデータベースから、「全てのデータを取得して新しい日時順に並べた結果」を取得
-        val taskRealmResults = mRealm.where(Task::class.java).findAll().sort("date", Sort.DESCENDING)
+        // 上記の結果を、TaskList としてセットする
         mTaskAdapter.taskList = mRealm.copyFromRealm(taskRealmResults)
 
         // TaskのListView用のアダプタに渡す
