@@ -82,15 +82,14 @@ class MainActivity : AppCompatActivity() {
         reloadListView()
     }
 
-    var taskRealmResults = null
-
     private fun reloadListView() {
-        if (category_home.text.isEmpty())  {
+        var taskRealmResults = if (category_home.text.isEmpty())  {
             // Realmデータベースから、「全てのデータを取得して新しい日時順に並べた結果」を取得
-            var taskRealmResults = mRealm.where(Task::class.java).findAll().sort("date", Sort.DESCENDING)
+            mRealm.where(Task::class.java).findAll().sort("date", Sort.DESCENDING)
         } else {
-            var taskRealmResults = mRealm.where(Task::class.java).beginsWith("category", category_home.text.toString()).findAll().sort("date", Sort.DESCENDING)
+            mRealm.where(Task::class.java).beginsWith("category", category_home.text.toString()).findAll().sort("date", Sort.DESCENDING)
         }
+
         // 上記の結果を、TaskList としてセットする
         mTaskAdapter.taskList = mRealm.copyFromRealm(taskRealmResults)
 
